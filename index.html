@@ -12,17 +12,6 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- GOOGLE ADS / ANALYTICS PLACEHOLDER -->
-    <!-- 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-YOUR-ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-YOUR-ID');
-    </script>
-    -->
-
     <!-- STRUCTURED DATA (JSON-LD) FOR GOOGLE SHOPPING -->
     <script type="application/ld+json">
     {
@@ -67,13 +56,23 @@
             background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        /* Hide scrollbar for cleaner look in modals if needed */
-        .no-scroll { overflow: hidden; }
         
         .legal-content h2 { font-family: 'Open Sans', sans-serif; font-weight: bold; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1f2937; }
         .legal-content h3 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.2rem; margin-top: 1rem; margin-bottom: 0.5rem; color: #374151; }
         .legal-content p { margin-bottom: 1rem; color: #4b5563; }
         .legal-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #4b5563; }
+
+        /* Loader for AI */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--christmas-red);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
@@ -102,6 +101,10 @@
                 <div class="hidden md:flex space-x-8">
                     <button onclick="navigateTo('home')" class="text-gray-700 hover:text-christmas-red font-medium transition">Shop</button>
                     <button onclick="navigateTo('home')" class="text-gray-700 hover:text-christmas-red font-medium transition">Bestseller</button>
+                    <!-- NEW AI LINK -->
+                    <button onclick="navigateTo('ai')" class="text-christmas-red font-bold hover:text-green-800 transition flex items-center gap-1">
+                        <i class="fas fa-magic"></i> AI-Fun ✨
+                    </button>
                     <button onclick="navigateTo('about')" class="text-gray-700 hover:text-christmas-red font-medium transition">Über Uns</button>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -163,6 +166,18 @@
                             <p class="text-gray-600">SSL-Verschlüsselung, PayPal & Käuferschutz.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- AI Teaser for Home Page -->
+            <div class="bg-gradient-to-r from-red-50 to-green-50 py-12 border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="bg-white border border-gray-200 rounded-full px-3 py-1 text-xs font-bold text-christmas-red uppercase mb-4 inline-block tracking-wide">Neu: AI Features ✨</span>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Keine Ahnung, was du schenken sollst?</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-8">Unser <strong>künstlicher Weihnachtself</strong> hilft dir! Finde das perfekte Shirt für jeden Verwandten oder generiere lustige Sprüche.</p>
+                    <button onclick="navigateTo('ai')" class="bg-white text-christmas-green border-2 border-christmas-green font-bold py-3 px-6 rounded-full hover:bg-christmas-green hover:text-white transition shadow-sm">
+                        <i class="fas fa-magic mr-2"></i> Zum AI-Geschenkfinder
+                    </button>
                 </div>
             </div>
 
@@ -259,7 +274,7 @@
                 </div>
             </div>
 
-            <!-- Reviews Section (Social Proof for Ads) -->
+            <!-- Reviews Section -->
             <div class="bg-gray-100 py-16">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 class="text-3xl font-bold text-center text-gray-800 mb-12 font-sans">Das sagen unsere Kunden</h2>
@@ -281,6 +296,69 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <!-- PAGE: AI FEATURES (NEW) -->
+        <div id="page-ai" class="page-section hidden bg-white min-h-screen">
+            <header class="bg-gray-900 text-white py-16 text-center px-4 relative overflow-hidden">
+                <div class="absolute inset-0 bg-christmas-green opacity-20"></div>
+                <div class="relative z-10">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Der AI-Weihnachtself ✨</h1>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Lass dir von unserer künstlichen Intelligenz (Powered by Gemini) helfen, das perfekte Geschenk oder den lustigsten Spruch zu finden.</p>
+                </div>
+            </header>
+
+            <div class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Feature 1: Gift Finder -->
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl text-christmas-red pointer-events-none">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">🎁 Geschenk-Finder ✨</h2>
+                    <p class="text-gray-600 mb-6">Du weißt nicht, welches Shirt passt? Beschreibe die Person (z.B. "Mein mürrischer Onkel Hans, der Bier und Fußball liebt") und unser AI-Elf empfiehlt dir das Beste!</p>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Für wen ist das Geschenk?</label>
+                        <textarea id="ai-gift-input" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-christmas-red focus:border-transparent" placeholder="z.B. Meine Schwester, die total auf Weihnachtsplätzchen abfährt..."></textarea>
+                    </div>
+                    
+                    <button onclick="runGiftFinder()" id="btn-gift" class="w-full bg-christmas-red text-white font-bold py-3 rounded-lg hover:bg-red-700 transition flex items-center justify-center gap-2">
+                        <span>Geschenk Finden ✨</span>
+                        <div id="loader-gift" class="loader hidden"></div>
+                    </button>
+
+                    <div id="result-gift" class="mt-6 hidden bg-white p-4 rounded-lg border-l-4 border-christmas-green">
+                        <h4 class="font-bold text-christmas-green mb-2">Empfehlung des Elfen:</h4>
+                        <p id="result-gift-text" class="text-gray-700 whitespace-pre-wrap"></p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Slogan Generator -->
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl text-christmas-green pointer-events-none">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 font-serif">💬 Spruch-Generator ✨</h2>
+                    <p class="text-gray-600 mb-6">Brauchst du Inspiration für die Weihnachtskarte oder einfach nur einen Lacher? Gib ein Thema ein, und wir generieren lustige T-Shirt Sprüche.</p>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Thema (z.B. Glühwein, Schwiegermutter)</label>
+                        <input type="text" id="ai-slogan-input" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-christmas-green focus:border-transparent" placeholder="z.B. Weihnachtsmarkt">
+                    </div>
+                    
+                    <button onclick="runSloganGen()" id="btn-slogan" class="w-full bg-christmas-green text-white font-bold py-3 rounded-lg hover:bg-green-800 transition flex items-center justify-center gap-2">
+                        <span>Sprüche Generieren ✨</span>
+                        <div id="loader-slogan" class="loader hidden" style="border-top-color: white;"></div>
+                    </button>
+
+                    <div id="result-slogan" class="mt-6 hidden bg-white p-4 rounded-lg border-l-4 border-christmas-red">
+                        <h4 class="font-bold text-christmas-red mb-2">Deine Sprüche:</h4>
+                        <ul id="result-slogan-list" class="list-disc pl-5 text-gray-700 space-y-2"></ul>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -499,6 +577,8 @@
             } else if (!pageId.startsWith('page-')) {
                 // If passed 'about', try 'page-about'
                 targetId = 'page-' + pageId;
+            } else if (pageId === 'ai') {
+                targetId = 'page-ai';
             }
 
             // Show target
@@ -513,20 +593,145 @@
 
         // Cart Logic
         let cartCount = 0;
-        
         function addToCart() {
-            // Update Count
             cartCount++;
             document.getElementById('cart-count').innerText = cartCount;
-
-            // Show Toast
             const toast = document.getElementById('toast');
             toast.classList.remove('translate-x-full');
-            
-            // Hide Toast after 3 seconds
             setTimeout(() => {
                 toast.classList.add('translate-x-full');
             }, 3000);
+        }
+
+        // --- GEMINI AI INTEGRATION ---
+        
+        // Product Catalog for Context
+        const productCatalog = [
+            { name: "Betrunkenes Rentier", description: "Lustiges Motiv für Weihnachtsfeiern. Rentier das etwas zu viel getrunken hat." },
+            { name: "Team Plätzchen", description: "Für alle, die gerne backen und Kekse essen. Familienfreundlich." },
+            { name: "Ho Ho Holzfäller", description: "Cooles, männliches Design mit Bart und Axt im Weihnachtslook." },
+            { name: "Ugly Sweater Style", description: "Klassisches, hässliches Weihnachtspullover-Design, aber als T-Shirt." }
+        ];
+
+        // API Key (Injected by environment or empty for user to fill)
+        const apiKey = ""; 
+
+        async function callGemini(prompt) {
+            // Check if key is available (it will be injected in the preview environment usually)
+            // If running locally, you need to put your key in the variable above
+            
+            // NOTE: In this specific preview environment, the key is injected automatically. 
+            // If you copy this file, you must add your own key to const apiKey.
+            
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error('API Request failed');
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error("Gemini Error:", error);
+                return "Ho Ho Ho! Der Weihnachtself ist gerade in der Pause. Bitte versuche es später noch einmal.";
+            }
+        }
+
+        // 1. Gift Finder Function
+        async function runGiftFinder() {
+            const input = document.getElementById('ai-gift-input').value;
+            if (!input.trim()) return;
+
+            // UI State
+            const btn = document.getElementById('btn-gift');
+            const loader = document.getElementById('loader-gift');
+            const resultBox = document.getElementById('result-gift');
+            const resultText = document.getElementById('result-gift-text');
+            
+            btn.disabled = true;
+            btn.querySelector('span').innerText = "Der Elf denkt nach...";
+            loader.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+
+            // Construct Prompt
+            const productListString = productCatalog.map(p => `- ${p.name}: ${p.description}`).join('\n');
+            const prompt = `
+                Du bist ein lustiger, deutscher Weihnachts-Verkaufs-Elf.
+                Ich habe einen Online-Shop mit diesen T-Shirts:
+                ${productListString}
+
+                Ein Kunde sucht ein Geschenk für: "${input}".
+
+                Aufgabe:
+                1. Wähle GENAU EINES der T-Shirts aus, das am besten passt.
+                2. Erkläre auf lustige, charmante Weise, warum dieses Shirt perfekt für die beschriebene Person ist.
+                3. Benutze Emojis.
+                4. Halte die Antwort kurz (max 3 Sätze).
+                
+                Antworte im Format:
+                "🎁 Empfehlung: [Shirt Name]
+                
+                🧝‍♂️ Weil: [Erklärung]"
+            `;
+
+            const response = await callGemini(prompt);
+
+            // Update UI
+            resultText.innerText = response;
+            resultBox.classList.remove('hidden');
+            btn.disabled = false;
+            btn.querySelector('span').innerText = "Geschenk Finden ✨";
+            loader.classList.add('hidden');
+        }
+
+        // 2. Slogan Generator Function
+        async function runSloganGen() {
+            const input = document.getElementById('ai-slogan-input').value;
+            if (!input.trim()) return;
+
+            // UI State
+            const btn = document.getElementById('btn-slogan');
+            const loader = document.getElementById('loader-slogan');
+            const resultBox = document.getElementById('result-slogan');
+            const resultList = document.getElementById('result-slogan-list');
+            
+            btn.disabled = true;
+            btn.querySelector('span').innerText = "Dichtet...";
+            loader.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+            resultList.innerHTML = '';
+
+            // Construct Prompt
+            const prompt = `
+                Erfinde 3 kurze, lustige deutsche T-Shirt Sprüche zum Thema: "${input}".
+                Die Sprüche sollen weihnachtlich oder winterlich sein.
+                Benutze Emojis.
+                Gib nur die 3 Sprüche zurück, getrennt durch einen Zeilenumbruch. Keine Nummerierung.
+            `;
+
+            const response = await callGemini(prompt);
+            
+            // Process response lines
+            const lines = response.split('\n').filter(line => line.trim() !== '');
+            lines.forEach(line => {
+                const li = document.createElement('li');
+                li.innerText = line.replace(/^\d+\.\s*/, '').replace(/^- \s*/, ''); // Clean lists
+                resultList.appendChild(li);
+            });
+
+            // Update UI
+            resultBox.classList.remove('hidden');
+            btn.disabled = false;
+            btn.querySelector('span').innerText = "Sprüche Generieren ✨";
+            loader.classList.add('hidden');
         }
     </script>
 </body>
