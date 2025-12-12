@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simacors.Christmas - Exklusive Weihnachts-T-Shirts</title>
+    <meta name="description" content="Kaufen Sie lustige und festliche Weihnachts-T-Shirts auf Deutsch. Schneller Versand und hochwertige Qualität.">
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE ADS / ANALYTICS PLACEHOLDER -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-YOUR-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-YOUR-ID');
+    </script>
+    -->
+
+    <!-- STRUCTURED DATA (JSON-LD) FOR GOOGLE SHOPPING -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Organization",
+      "name": "Simacors.Christmas",
+      "url": "https://simacors.christmas",
+      "logo": "https://placehold.co/150x50?text=Simacors",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+49-30-12345678",
+        "contactType": "Customer Service",
+        "areaServed": "DE",
+        "availableLanguage": "German"
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            --christmas-red: #D42426;
+            --christmas-green: #2F5233;
+            --gold: #FFD700;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        h1, h2, h3, h4, .logo {
+            font-family: 'Mountains of Christmas', cursive;
+        }
+        .bg-christmas-red { background-color: var(--christmas-red); }
+        .text-christmas-red { color: var(--christmas-red); }
+        .bg-christmas-green { background-color: var(--christmas-green); }
+        .text-christmas-green { color: var(--christmas-green); }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .snow-bg {
+            background-color: #f8f9fa;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Hide scrollbar for cleaner look in modals if needed */
+        .no-scroll { overflow: hidden; }
+        
+        .legal-content h2 { font-family: 'Open Sans', sans-serif; font-weight: bold; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1f2937; }
+        .legal-content h3 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.2rem; margin-top: 1rem; margin-bottom: 0.5rem; color: #374151; }
+        .legal-content p { margin-bottom: 1rem; color: #4b5563; }
+        .legal-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #4b5563; }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Notification Toast (Hidden by default) -->
+    <div id="toast" class="fixed top-20 right-5 bg-white border-l-4 border-christmas-green shadow-xl rounded p-4 z-50 transform translate-x-full transition-transform duration-300 flex items-center gap-3">
+        <div class="text-christmas-green text-xl"><i class="fas fa-check-circle"></i></div>
+        <div>
+            <h4 class="font-bold text-gray-800 font-sans text-sm">Hinzugefügt!</h4>
+            <p class="text-xs text-gray-600">Artikel liegt im Warenkorb.</p>
+        </div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div class="bg-christmas-red text-white text-center py-2 text-sm font-semibold">
+        🎄 Kostenloser Versand ab 50€ | Frohe Weihnachten! 🎄
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="logo text-3xl font-bold text-christmas-green cursor-pointer" onclick="navigateTo('home')">
+                    Simacors.Christmas
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="navigateTo('home')" class="text-gray-700 hover:text-christmas-red font-medium transition">Shop</button>
+                    <button onclick="navigateTo('home')" class="text-gray-700 hover:text-christmas-red font-medium transition">Bestseller</button>
+                    <button onclick="navigateTo('about')" class="text-gray-700 hover:text-christmas-red font-medium transition">Über Uns</button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-gray-600 hover:text-christmas-red relative group">
+                         <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:text-christmas-red relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-christmas-red rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <div id="main-content" class="flex-grow">
+        
+        <!-- PAGE: HOME (SHOP) -->
+        <div id="page-home" class="page-section">
+            <!-- Hero Section -->
+            <header class="relative bg-christmas-green text-white overflow-hidden">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <!-- Background Pattern (CSS only) -->
+                <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #ccc 0, #ccc 1px, transparent 0, transparent 50%); background-size: 10px 10px;"></div>
+                
+                <div class="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4 tracking-wider">Mach Weihnachten Legendär</h1>
+                    <p class="text-xl md:text-2xl mb-8 max-w-2xl text-gray-100">Die lustigsten T-Shirts für deine Weihnachtsfeier, Familie oder als das perfekte Geschenk unter dem Baum.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="document.getElementById('shop-grid').scrollIntoView({behavior: 'smooth'})" class="bg-christmas-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 border-2 border-white">
+                            Jetzt Kollektion Ansehen
+                        </button>
+                        <!-- Added Trust Element near CTA -->
+                        <div class="flex items-center justify-center text-sm font-semibold text-gray-200 gap-2">
+                             <i class="fas fa-star text-yellow-400"></i> 4.9/5 Sterne Bewertung
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Trust Signals -->
+            <div class="bg-white border-b border-gray-200">
+                <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-4">
+                            <div class="text-4xl mb-2 text-christmas-red"><i class="fas fa-shipping-fast"></i></div>
+                            <h3 class="text-xl font-bold text-gray-800">Schneller Versand</h3>
+                            <p class="text-gray-600">Lieferung innerhalb von 2-3 Werktagen aus Deutschland.</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-4xl mb-2 text-green-600"><i class="fas fa-leaf"></i></div>
+                            <h3 class="text-xl font-bold text-gray-800">Bio-Qualität</h3>
+                            <p class="text-gray-600">100% nachhaltige Baumwolle und faire Produktion.</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-4xl mb-2 text-blue-600"><i class="fas fa-lock"></i></div>
+                            <h3 class="text-xl font-bold text-gray-800">Sichere Zahlung</h3>
+                            <p class="text-gray-600">SSL-Verschlüsselung, PayPal & Käuferschutz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="snow-bg py-16" id="shop-grid">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Unsere Bestseller</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Product 1 -->
+                        <div class="product-card bg-white rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 relative group">
+                            <div class="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide z-10">Bestseller</div>
+                            <div class="h-64 bg-gray-200 overflow-hidden relative">
+                                <svg class="w-full h-full object-cover" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="400" height="400" fill="#f3f4f6"/>
+                                    <path d="M100 100 L140 60 L260 60 L300 100 L300 140 L260 140 L260 340 L140 340 L140 140 L100 140 Z" fill="#D42426"/>
+                                    <text x="200" y="200" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Betrunkenes</text>
+                                    <text x="200" y="230" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Rentier</text>
+                                </svg>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">"Betrunkenes Rentier"</h3>
+                                <div class="text-xs text-green-600 font-semibold mb-2 flex items-center justify-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Auf Lager</div>
+                                <div class="flex justify-center items-center space-x-2 mb-4">
+                                    <span class="text-christmas-green font-bold text-xl">24,99 €</span>
+                                    <span class="text-gray-400 line-through text-sm">29,99 €</span>
+                                </div>
+                                <button class="w-full bg-gray-900 text-white py-2 rounded hover:bg-christmas-red transition duration-300" onclick="addToCart()">In den Warenkorb</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="product-card bg-white rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 group">
+                            <div class="h-64 bg-gray-200 overflow-hidden relative">
+                                <svg class="w-full h-full object-cover" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="400" height="400" fill="#f3f4f6"/>
+                                    <path d="M100 100 L140 60 L260 60 L300 100 L300 140 L260 140 L260 340 L140 340 L140 140 L100 140 Z" fill="#2F5233"/>
+                                    <text x="200" y="200" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Team</text>
+                                    <text x="200" y="230" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Plätzchen</text>
+                                </svg>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">"Team Plätzchen"</h3>
+                                <div class="text-xs text-green-600 font-semibold mb-2 flex items-center justify-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Auf Lager</div>
+                                <div class="flex justify-center items-center space-x-2 mb-4">
+                                    <span class="text-christmas-green font-bold text-xl">24,99 €</span>
+                                </div>
+                                <button class="w-full bg-gray-900 text-white py-2 rounded hover:bg-christmas-red transition duration-300" onclick="addToCart()">In den Warenkorb</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="product-card bg-white rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 relative group">
+                            <div class="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide z-10">Sale</div>
+                            <div class="h-64 bg-gray-200 overflow-hidden relative">
+                                <svg class="w-full h-full object-cover" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="400" height="400" fill="#f3f4f6"/>
+                                    <path d="M100 100 L140 60 L260 60 L300 100 L300 140 L260 140 L260 340 L140 340 L140 140 L100 140 Z" fill="#333"/>
+                                    <text x="200" y="200" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Ho Ho</text>
+                                    <text x="200" y="230" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Holzfäller</text>
+                                </svg>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">"Ho Ho Holzfäller"</h3>
+                                <div class="text-xs text-green-600 font-semibold mb-2 flex items-center justify-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Auf Lager</div>
+                                <div class="flex justify-center items-center space-x-2 mb-4">
+                                    <span class="text-christmas-green font-bold text-xl">19,99 €</span>
+                                    <span class="text-gray-400 line-through text-sm">29,99 €</span>
+                                </div>
+                                <button class="w-full bg-gray-900 text-white py-2 rounded hover:bg-christmas-red transition duration-300" onclick="addToCart()">In den Warenkorb</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="product-card bg-white rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 group">
+                            <div class="h-64 bg-gray-200 overflow-hidden relative">
+                                <svg class="w-full h-full object-cover" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="400" height="400" fill="#f3f4f6"/>
+                                    <path d="M100 100 L140 60 L260 60 L300 100 L300 140 L260 140 L260 340 L140 340 L140 140 L100 140 Z" fill="#D42426"/>
+                                    <text x="200" y="200" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Ugly</text>
+                                    <text x="200" y="230" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Sweater</text>
+                                </svg>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">"Ugly Sweater" Look</h3>
+                                <div class="text-xs text-green-600 font-semibold mb-2 flex items-center justify-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Auf Lager</div>
+                                <div class="flex justify-center items-center space-x-2 mb-4">
+                                    <span class="text-christmas-green font-bold text-xl">24,99 €</span>
+                                </div>
+                                <button class="w-full bg-gray-900 text-white py-2 rounded hover:bg-christmas-red transition duration-300" onclick="addToCart()">In den Warenkorb</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section (Social Proof for Ads) -->
+            <div class="bg-gray-100 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-12 font-sans">Das sagen unsere Kunden</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 italic mb-4">"Super schnelle Lieferung! Das T-Shirt kam genau rechtzeitig zur Weihnachtsfeier. Die Qualität ist top."</p>
+                            <p class="font-bold text-gray-800">- Sarah M. aus München</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 italic mb-4">"Endlich mal T-Shirts, die nicht beim ersten Waschen eingehen. Der Druck sieht sehr hochwertig aus."</p>
+                            <p class="font-bold text-gray-800">- Thomas K. aus Hamburg</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex text-yellow-400 mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="text-gray-600 italic mb-4">"Habe 3 Stück für die Familie bestellt. Alle sind begeistert. Klarna Zahlung war super einfach."</p>
+                            <p class="font-bold text-gray-800">- Julia W. aus Berlin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: ABOUT US -->
+        <div id="page-about" class="page-section hidden bg-white py-16">
+            <div class="max-w-4xl mx-auto px-4">
+                <h1 class="text-4xl text-christmas-green font-bold mb-8 text-center">Über Simacors.Christmas</h1>
+                <div class="prose prose-lg mx-auto text-gray-600">
+                    <p class="mb-4">Willkommen bei <strong>Simacors.Christmas</strong>! Wir sind ein kleines Team von Weihnachts-Enthusiasten aus Berlin, die es sich zur Aufgabe gemacht haben, die Feiertage ein bisschen bunter, lustiger und gemütlicher zu machen.</p>
+                    <p class="mb-4">Unsere Geschichte begann 2023, als wir vergeblich nach einem T-Shirt suchten, das nicht nur weihnachtlich aussieht, sondern auch bequem genug ist, um nach dem großen Festessen noch zu passen. Da wir nichts fanden, haben wir es selbst gemacht.</p>
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Unsere Werte</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Qualität:</strong> Wir verwenden 100% Bio-Baumwolle.</li>
+                        <li><strong>Humor:</strong> Das Leben ist ernst genug, Weihnachten sollte Spaß machen.</li>
+                        <li><strong>Nachhaltigkeit:</strong> Plastikfreie Verpackung und CO2-neutraler Versand.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: IMPRESSUM -->
+        <div id="page-impressum" class="page-section hidden bg-white py-12">
+            <div class="max-w-3xl mx-auto px-4 legal-content">
+                <h1 class="text-3xl font-bold mb-8 border-b pb-4">Impressum</h1>
+                <h2>Angaben gemäß § 5 TMG</h2>
+                <p>
+                    Simacors GmbH (Musterfirma)<br>
+                    Musterstraße 123<br>
+                    10115 Berlin<br>
+                    Deutschland
+                </p>
+                <h2>Kontakt</h2>
+                <p>
+                    Telefon: +49 (0) 30 12345678<br>
+                    E-Mail: kontakt@simacors.christmas
+                </p>
+                <h2>Vertreten durch</h2>
+                <p>Geschäftsführer: Max Mustermann</p>
+                <h2>Registereintrag</h2>
+                <p>
+                    Eintragung im Handelsregister.<br>
+                    Registergericht: Amtsgericht Berlin-Charlottenburg<br>
+                    Registernummer: HRB 123456
+                </p>
+                <h2>Umsatzsteuer-ID</h2>
+                <p>
+                    Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+                    DE123456789
+                </p>
+                <h2>EU-Streitschlichtung</h2>
+                <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" class="text-blue-600 underline">https://ec.europa.eu/consumers/odr/</a>.<br> Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+                <h2>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+                <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+            </div>
+        </div>
+
+        <!-- PAGE: DATENSCHUTZ -->
+        <div id="page-datenschutz" class="page-section hidden bg-white py-12">
+            <div class="max-w-3xl mx-auto px-4 legal-content">
+                <h1 class="text-3xl font-bold mb-8 border-b pb-4">Datenschutzerklärung</h1>
+                <h2>1. Datenschutz auf einen Blick</h2>
+                <h3>Allgemeine Hinweise</h3>
+                <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                <h3>Datenerfassung auf dieser Website</h3>
+                <p><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br>
+                Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
+                <h2>2. Hosting</h2>
+                <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter: [Muster-Hoster, z.B. Shopify/AWS].</p>
+                <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
+                <h3>Datenschutz</h3>
+                <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
+                <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+            </div>
+        </div>
+
+        <!-- PAGE: AGB -->
+        <div id="page-agb" class="page-section hidden bg-white py-12">
+            <div class="max-w-3xl mx-auto px-4 legal-content">
+                <h1 class="text-3xl font-bold mb-8 border-b pb-4">Allgemeine Geschäftsbedingungen (AGB)</h1>
+                <h2>1. Geltungsbereich</h2>
+                <p>Für alle Bestellungen über unseren Online-Shop gelten die nachfolgenden AGB. Unser Online-Shop richtet sich ausschließlich an Verbraucher.</p>
+                <h2>2. Vertragspartner, Vertragsschluss</h2>
+                <p>Der Kaufvertrag kommt zustande mit Simacors GmbH. Mit Einstellung der Produkte in den Online-Shop geben wir ein verbindliches Angebot zum Vertragsschluss über diese Artikel ab. Sie können unsere Produkte zunächst unverbindlich in den Warenkorb legen und Ihre Eingaben vor Absenden Ihrer verbindlichen Bestellung jederzeit korrigieren.</p>
+                <h2>3. Lieferbedingungen</h2>
+                <p>Zuzüglich zu den angegebenen Produktpreisen kommen noch Versandkosten hinzu. Näheres zur Höhe der Versandkosten erfahren Sie bei den Angeboten. Wir liefern nur im Versandweg. Eine Selbstabholung der Ware ist leider nicht möglich.</p>
+                <h2>4. Bezahlung</h2>
+                <p>In unserem Shop stehen Ihnen grundsätzlich die folgenden Zahlungsarten zur Verfügung: PayPal, Kreditkarte (Visa, Mastercard), Klarna.</p>
+                <h2>5. Eigentumsvorbehalt</h2>
+                <p>Die Ware bleibt bis zur vollständigen Bezahlung unser Eigentum.</p>
+                <h2>6. Transportschäden</h2>
+                <p>Werden Waren mit offensichtlichen Transportschäden angeliefert, so reklamieren Sie solche Fehler bitte möglichst sofort beim Zusteller und nehmen Sie bitte unverzüglich Kontakt zu uns auf.</p>
+            </div>
+        </div>
+
+        <!-- PAGE: WIDERRUF -->
+        <div id="page-widerruf" class="page-section hidden bg-white py-12">
+            <div class="max-w-3xl mx-auto px-4 legal-content">
+                <h1 class="text-3xl font-bold mb-8 border-b pb-4">Widerrufsbelehrung</h1>
+                <h2>Widerrufsrecht</h2>
+                <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat.</p>
+                <p>Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Simacors GmbH, Musterstraße 123, 10115 Berlin, E-Mail: kontakt@simacors.christmas) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.</p>
+                <h2>Folgen des Widerrufs</h2>
+                <p>Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist.</p>
+                <h2>Muster-Widerrufsformular</h2>
+                <p>(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)</p>
+                <ul style="list-style: none; padding-left: 0; border: 1px solid #eee; padding: 20px;">
+                    <li>An Simacors GmbH, Musterstraße 123, 10115 Berlin, E-Mail: kontakt@simacors.christmas</li>
+                    <li>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)</li>
+                    <li>Bestellt am (*)/erhalten am (*)</li>
+                    <li>Name des/der Verbraucher(s)</li>
+                    <li>Anschrift des/der Verbraucher(s)</li>
+                    <li>Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)</li>
+                    <li>Datum</li>
+                </ul>
+            </div>
+        </div>
+
+         <!-- PAGE: VERSAND -->
+         <div id="page-versand" class="page-section hidden bg-white py-12">
+            <div class="max-w-3xl mx-auto px-4 legal-content">
+                <h1 class="text-3xl font-bold mb-8 border-b pb-4">Versand & Zahlung</h1>
+                <h2>Versandkosten</h2>
+                <p>Wir versenden standardmäßig mit DHL GoGreen.</p>
+                <ul>
+                    <li>Deutschland: 4,99 € (Kostenlos ab 50 € Bestellwert)</li>
+                    <li>Österreich: 8,99 €</li>
+                    <li>Schweiz: 12,99 €</li>
+                </ul>
+                <h2>Lieferzeiten</h2>
+                <p>Soweit im jeweiligen Angebot keine andere Frist angegeben ist, erfolgt die Lieferung der Ware im Inland (Deutschland) innerhalb von 2-3 Tagen nach Vertragsschluss (bei vereinbarter Vorauszahlung nach dem Zeitpunkt Ihrer Zahlungsanweisung).</p>
+                <h2>Zahlungsarten</h2>
+                <p>Sie können wahlweise per Vorkasse, Kreditkarte, PayPal oder Klarna bezahlen.</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+    <!-- Footer - CRITICAL FOR GERMAN ADS COMPLIANCE -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t-4 border-christmas-green mb-16 md:mb-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <h4 class="text-white text-lg font-bold mb-4 font-serif">Simacors.Christmas</h4>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Dein Online-Shop für die lustigsten Weihnachts-Outfits. 
+                        Qualität, Spaß und schneller Versand garantiert.
+                    </p>
+                </div>
+                
+                <div class="col-span-1">
+                    <h4 class="text-white text-lg font-bold mb-4">Kundenservice</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><button onclick="navigateTo('page-versand')" class="hover:text-white transition text-left">Versand & Lieferung</button></li>
+                        <li><button onclick="navigateTo('page-widerruf')" class="hover:text-white transition text-left">Rücksendungen</button></li>
+                        <li><button onclick="navigateTo('about')" class="hover:text-white transition text-left">Über Uns</button></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-white text-lg font-bold mb-4">Rechtliches (Pflicht)</h4>
+                    <ul class="space-y-2 text-sm flex flex-col items-start">
+                        <li><button onclick="navigateTo('page-impressum')" class="hover:text-white transition font-semibold text-christmas-red mb-1">Impressum</button></li>
+                        <li><button onclick="navigateTo('page-datenschutz')" class="hover:text-white transition mb-1">Datenschutzerklärung</button></li>
+                        <li><button onclick="navigateTo('page-agb')" class="hover:text-white transition mb-1">AGB</button></li>
+                        <li><button onclick="navigateTo('page-widerruf')" class="hover:text-white transition mb-1">Widerrufsbelehrung</button></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-white text-lg font-bold mb-4">Kontakt & Zahlung</h4>
+                    <p class="text-sm mb-2">Simacors GmbH (Muster)</p>
+                    <p class="text-sm mb-4">Berlin, Deutschland</p>
+                    <div class="flex space-x-2 mt-4">
+                        <div class="bg-white text-black px-2 py-1 text-xs font-bold rounded flex items-center gap-1"><i class="fab fa-paypal"></i> PayPal</div>
+                        <div class="bg-white text-black px-2 py-1 text-xs font-bold rounded flex items-center gap-1"><i class="fab fa-cc-visa"></i> VISA</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2025 Simacors.Christmas. Alle Rechte vorbehalten. Alle Preise inkl. gesetzl. Mehrwertsteuer zzgl. Versandkosten.</p>
+                <p class="mt-2">Rechtlicher Hinweis: Diese Website ist eine Demo. Die Rechtstexte sind Muster und müssen vor Veröffentlichung von einem Anwalt geprüft werden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- COOKIE BANNER (GDPR & GOOGLE CONSENT MODE) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 z-50 transform transition-transform duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-700">
+                <h3 class="font-bold mb-1">Privatsphäre & Cookies</h3>
+                <p>Wir nutzen Cookies, um Ihr Shopping-Erlebnis zu verbessern und für Marketingzwecke (Google Ads). Stimmen Sie der Nutzung zu?</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="document.getElementById('cookie-banner').style.transform='translateY(100%)'" class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 transition">Nur Essenzielle</button>
+                <button onclick="document.getElementById('cookie-banner').style.transform='translateY(100%)'" class="px-4 py-2 text-sm font-bold text-white bg-christmas-green rounded hover:bg-green-800 transition">Alle Akzeptieren</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Simple Single Page App Router
+        function navigateTo(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Handle special 'home' case or direct IDs
+            let targetId = pageId;
+            if (pageId === 'home') {
+                targetId = 'page-home';
+            } else if (!pageId.startsWith('page-')) {
+                // If passed 'about', try 'page-about'
+                targetId = 'page-' + pageId;
+            }
+
+            // Show target
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                console.error('Page not found:', targetId);
+            }
+        }
+
+        // Cart Logic
+        let cartCount = 0;
+        
+        function addToCart() {
+            // Update Count
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+
+            // Show Toast
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-x-full');
+            
+            // Hide Toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
